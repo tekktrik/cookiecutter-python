@@ -1,0 +1,66 @@
+{%- if cookiecutter.license == 'MIT' -%}
+    {%- set license_trove = 'License :: OSI Approved :: MIT License' -%}
+{%- elif cookiecutter.license == 'Apache-2.0' -%}
+    {%- set license_trove = 'License :: OSI Approved :: Apache Software License' -%}
+{%- elif cookiecutter.license == 'GPL-3.0-only' -%}
+    {%- set license_trove = 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)' -%}
+{%- elif cookiecutter.license == 'LGPL-3.0-only' -%}
+    {%- set license_trove = 'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)' -%}
+{%- elif cookiecutter.license == 'Unlicense' -%}
+    {%- set license_trove = 'License :: OSI Approved :: The Unlicense (Unlicense)' -%}
+{%- endif -%}
+
+{%- set max_minor_version = 12 -%}
+{%- set loop_max = max_minor_version + 1 -%}
+{%- set min_version_parts = cookiecutter.python_version.split(".") -%}
+{%- set min_minor_version = min_version_parts[1]|int -%}
+
+# SPDX-FileCopyrightText: {% now 'utc', '%Y' %} {{ cookiecutter.author_name }}
+# SPDX-License-Identifier: {{ cookiecutter.license }}
+
+[build-system]
+requires = [
+    "setuptools",
+    "setuptools-scm",
+    "wheel",
+]
+
+[project]
+name = "{{ cookiecutter.__pypi_name }}"
+description = "{{ cookiecutter.library_description }}"
+authors = [
+    {name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.author_email }}"}
+]
+license = {text = "{{ cookiecutter.license }}"}
+readme = "README.md"
+requires-python = ">= {{ cookiecutter.python_version }}"
+keywords = [
+    "TODO: Add keywords here"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    {%+ for minor_version in range(min_minor_version, loop_max) -%}
+    "Programming Language :: Python :: 3.{{ minor_version }}",
+    {%+ endfor -%}
+    "Natural Language :: English",
+]
+dynamic = ["version", "dependencies", "optional-dependencies"]
+
+[project.urls]
+# TODO: Add project URLs here
+
+[tool.setuptools]
+packages = ["{{ cookiecutter.__pypi_name }}"]
+
+[tool.setuptools.dynamic.version]
+file = "VERSION"
+
+[tool.setuptools.dynamic.dependencies]
+file = "requirements.txt"
+
+[tool.setuptools.dynamic.optional-dependencies]
+dev = {file = ["requirements-dev.txt"]}
+
+[tool.ruff.lint]
+select = ["D", "PL", "UP", "I"]
+ignore = ["D213", "D203"]

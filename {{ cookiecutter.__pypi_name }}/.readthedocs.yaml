@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: {% now 'utc', '%Y' %} {{ cookiecutter.author_name }}
+# SPDX-License-Identifier: {{ cookiecutter.license }}
+
+version: 2
+
+# OS and Python version
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.12"
+
+# Sphinx configuration file
+sphinx:
+  configuration: docs/conf.py
+
+# Build dependencies
+python:
+  install:
+    - requirements: docs/requirements.txt
