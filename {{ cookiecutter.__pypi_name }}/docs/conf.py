@@ -12,13 +12,13 @@ author = "{{ cookiecutter.author_name }}"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
-
-templates_path = ["_templates"]
-exclude_patterns = [
+extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.todo",
 ]
+
+templates_path = ["_templates"]
+exclude_patterns = []
 
 
 # -- Options for HTML output -------------------------------------------------
